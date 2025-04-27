@@ -1,27 +1,53 @@
 package com.character_manager.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.character_manager.repository.CharacterRepository;
-import com.character_manager.repository.FactionRepository;
-import com.character_manager.repository.PlotlineRepository;
-import com.character_manager.repository.SkillRepository;
+import com.character_manager.entity.CharacterInfo;
+import com.character_manager.entity.Faction;
+import com.character_manager.entity.Plotline;
+import com.character_manager.entity.Skill;
 
-@Service
-public class CharacterService {
-	//I referred to my DAO layer as repositories as that is how my instructor did it in class.
+public interface CharacterService {
 
-	@Autowired
-	CharacterRepository characterRepository;
+	//Get methods
+	//I eventually removed getCharactersByFaction and getCharactersByPlotline,
+	//as I was getting errors in my loops that were clearing fields
+	//and there was no more or less character information in these methods as there were in the specific faction and plotline methods.
 	
-	@Autowired
-	FactionRepository factionRepository;
+	public List<Faction> getAllFactions();
 	
-	@Autowired
-	SkillRepository skillRepository;
+	public Faction getFactionById(int factionId);
 	
-	@Autowired
-	PlotlineRepository plotlineRepository;
+	public List<Skill> getAllSkills();
+	
+	public List<Plotline> getAllPlotlines();
+	
+	public Plotline getPlotlineById(int plotlineId);
+	
+	public List<CharacterInfo> getAllCharacters();
+	
+	public CharacterInfo getCharacterById(int characterId);
+	
+	public List<CharacterInfo> getCharactersBySkill(String skillName);
+	
+	//Post methods
+	
+	public Faction addFaction(Faction faction);
+	
+	public CharacterInfo addCharacter(CharacterInfo character);
+	
+	public Plotline addPlotline(Plotline plotline);
+	
+	//Put methods
+	
+	public CharacterInfo updateCharacter(CharacterInfo character, int characterId);
+	
+	public Plotline updatePlotline(int plotlineId);
+	
+	//Delete methods
+	
+	public void deleteFaction(int factionId);
+	
+	public void deleteCharacter(int characterId);
 	
 }
