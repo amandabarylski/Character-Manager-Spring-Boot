@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.character_manager.controller.model.CharacterModel;
+import com.character_manager.controller.model.PlotlineModel;
 import com.character_manager.entity.CharacterInfo;
 import com.character_manager.entity.Faction;
 import com.character_manager.entity.Plotline;
@@ -137,20 +139,59 @@ public class CharacterServiceImpl implements CharacterService{
 	
 	@Override
 	public Faction addFaction(Faction faction) {
-		// TODO Auto-generated method stub
-		return null;
+		return factionRepository.save(faction);
 	}
 
+	
+	//In order to avoid entering whole objects but being able to add skills and plotlines to a new character,
+	//I used a model to allow me to use integers and strings to find the objects being referred to.
+	//Unfortunately, this made the created message recursive.
 	@Override
-	public CharacterInfo addCharacter(CharacterInfo character) {
-		// TODO Auto-generated method stub
-		return null;
+	public CharacterInfo addCharacter(CharacterModel characterModel) {
+		CharacterInfo character = new CharacterInfo();
+		Faction faction = factionRepository.findById(characterModel.getFactionId())
+				.orElseThrow(() -> new ResourceNotFoundException("Faction", "Id", characterModel.getFactionId()));
+		
+		character.setFaction(faction);
+		character.setCharacterName(characterModel.getCharacterName());
+		character.setRace(characterModel.getRace());
+		character.setGender(characterModel.getGender());
+		character.setDescription(characterModel.getDescription());
+		
+		for(String skillName : characterModel.getSkills()) {
+			Skill skill = skillRepository.findBySkillName(skillName).orElseThrow(() -> new ResourceNotFoundException("Skill", "name", skillName));
+			skill.getCharacters().add(character);
+			character.getSkills().add(skill);
+		}
+		
+		for(Integer plotlineId : characterModel.getPlotlines()) {
+			Plotline plotline = plotlineRepository.findById(plotlineId).orElseThrow(() -> new ResourceNotFoundException("Plotline", "Id", plotlineId));
+			plotline.getCharacters().add(character);
+			character.getPlotlines().add(plotline);
+		}
+		
+		return characterRepository.save(character);
 	}
 
+	//Like the addCharacter method, I had to adjust how I was constructing the object in order to add the many-to-many relationships.
+	//Also like the addCharacter method, my created message became recursive.
 	@Override
-	public Plotline addPlotline(Plotline plotline) {
-		// TODO Auto-generated method stub
-		return null;
+	public Plotline addPlotline(PlotlineModel plotlineModel) {
+		Plotline plotline = new Plotline();
+		
+		plotline.setPlotlineName(plotlineModel.getPlotlineName());
+		plotline.setDescription(plotlineModel.getDescription());
+		plotline.setDuration(plotlineModel.getDuration());
+		plotline.setActive(plotlineModel.isActive());
+		
+		for(Integer characterId : plotlineModel.getCharacters()) {
+			CharacterInfo character = characterRepository.findById(characterId)
+					.orElseThrow(() -> new ResourceNotFoundException("Character", "Id", characterId));
+			character.getPlotlines().add(plotline);
+			plotline.getCharacters().add(character);
+		}
+		
+		return plotlineRepository.save(plotline);
 	}
 
 	
@@ -159,7 +200,7 @@ public class CharacterServiceImpl implements CharacterService{
 	//Put methods
 	
 	@Override
-	public CharacterInfo updateCharacter(CharacterInfo character, int characterId) {
+	public CharacterInfo updateCharacter(CharacterModel characterModel, int characterId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

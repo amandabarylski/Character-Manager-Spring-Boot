@@ -1,0 +1,9 @@
+{
+	"plotlineName": "Long Live the King",
+	"description": "High King Brenward is assassinated, and his older son quickly accuses the younger of having him killed. Prince Osrew enlists the help of Vanguard in uncovering the truth.",
+	"duration": "One month",
+	"active": false,
+	"characters": [
+		1, 2, 4, 5, 6, 9, 10, 11, 16, 17, 19
+	]
+}

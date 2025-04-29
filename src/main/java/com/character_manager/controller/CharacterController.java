@@ -7,9 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.character_manager.controller.model.CharacterModel;
+import com.character_manager.controller.model.PlotlineModel;
 import com.character_manager.entity.CharacterInfo;
 import com.character_manager.entity.Faction;
 import com.character_manager.entity.Plotline;
@@ -65,5 +69,36 @@ public class CharacterController {
 	public List<CharacterInfo> getCharactersBySkill(@PathVariable String skillName) {
 		return characterService.getCharactersBySkill(skillName);
 	}
+	
+	
+	
+	//Post methods
+	
+	@PostMapping("/faction")
+	public ResponseEntity<Faction> addFaction(@RequestBody Faction faction) {
+		return new ResponseEntity<Faction>(characterService.addFaction(faction), HttpStatus.CREATED);
+	}
+
+	//When dealing with the recursive created message, I decided to try separating the save method from the message.
+	//The response entity returned is the created object, but with the modifications I made to prevent recursions in my get methods.
+	@PostMapping("/character_table")
+	public ResponseEntity<CharacterInfo> addCharacter(@RequestBody CharacterModel characterModel) {
+		CharacterInfo character = characterService.addCharacter(characterModel);
+		return new ResponseEntity<CharacterInfo>(characterService.getCharacterById(character.getCharacterId()), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/plotline")
+	public ResponseEntity<Plotline> addPlotline(@RequestBody PlotlineModel plotlineModel) {
+		Plotline plotline = characterService.addPlotline(plotlineModel);
+		return new ResponseEntity<Plotline>(characterService.getPlotlineById(plotline.getPlotlineId()), HttpStatus.CREATED);
+	}
+	
+	
+	
+	//Put methods
+	
+	
+	
+	//Delete methods
 	
 }

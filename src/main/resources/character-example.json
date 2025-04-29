@@ -1,0 +1,32 @@
+[
+{
+  "characterName": "Tireshta",
+  "race": "Selken",
+  "gender": "Female",
+  "description": "An informer and assassin. Allies herself with Vanguard at times.",
+  "factionId": 6,
+  "skills": [
+    "Fire- ignition", "Fire- Suppression", "Fire- combat", "Earth- shifting", "Light- illumination",
+    "Water- cryomancy", "Lightning- combat", "Warding", "Healing",
+    "Enchantment- temporary", "Enchantment- runework", "Magical Theory",
+    "Hand-to-hand combat", "Tracking", "Disguise", "Deception"
+    ],
+  "plotlines": [
+    1, 2, 3
+  ]
+},
+
+{
+  "characterName": "Sibil",
+  "race": "Mixed- human",
+  "gender": "Female",
+  "description": "A black market dealer whose many customers include members of the royal court. Her fees are expensive but her information worthwhile.",
+  "factionId": 6,
+  "skills": [
+    "Light- illumination", "Light- illusion", "Diplomacy", "Deception", "Perception"
+    ],
+  "plotlines": [
+    4
+  ]
+}
+]

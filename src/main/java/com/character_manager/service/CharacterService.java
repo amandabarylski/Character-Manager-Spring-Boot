@@ -2,6 +2,8 @@ package com.character_manager.service;
 
 import java.util.List;
 
+import com.character_manager.controller.model.CharacterModel;
+import com.character_manager.controller.model.PlotlineModel;
 import com.character_manager.entity.CharacterInfo;
 import com.character_manager.entity.Faction;
 import com.character_manager.entity.Plotline;
@@ -34,13 +36,13 @@ public interface CharacterService {
 	
 	public Faction addFaction(Faction faction);
 	
-	public CharacterInfo addCharacter(CharacterInfo character);
+	public CharacterInfo addCharacter(CharacterModel characterModel);
 	
-	public Plotline addPlotline(Plotline plotline);
+	public Plotline addPlotline(PlotlineModel plotlineModel);
 	
 	//Put methods
 	
-	public CharacterInfo updateCharacter(CharacterInfo character, int characterId);
+	public CharacterInfo updateCharacter(CharacterModel characterModel, int characterId);
 	
 	public Plotline updatePlotline(int plotlineId);
 	
