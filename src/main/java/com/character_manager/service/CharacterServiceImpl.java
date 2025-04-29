@@ -160,13 +160,11 @@ public class CharacterServiceImpl implements CharacterService{
 		
 		for(String skillName : characterModel.getSkills()) {
 			Skill skill = skillRepository.findBySkillName(skillName).orElseThrow(() -> new ResourceNotFoundException("Skill", "name", skillName));
-			skill.getCharacters().add(character);
 			character.getSkills().add(skill);
 		}
 		
 		for(Integer plotlineId : characterModel.getPlotlines()) {
 			Plotline plotline = plotlineRepository.findById(plotlineId).orElseThrow(() -> new ResourceNotFoundException("Plotline", "Id", plotlineId));
-			plotline.getCharacters().add(character);
 			character.getPlotlines().add(plotline);
 		}
 		
@@ -199,33 +197,63 @@ public class CharacterServiceImpl implements CharacterService{
 	
 	//Put methods
 	
+	//The character put method is very similar to the character post method as all fields are allowed.
+	//I emptied the lists of skills and plotlines and refilled them to prevent any errors from duplicate pairs on the join table.
 	@Override
 	public CharacterInfo updateCharacter(CharacterModel characterModel, int characterId) {
-		// TODO Auto-generated method stub
-		return null;
+		CharacterInfo character = characterRepository.findById(characterId)
+				.orElseThrow(() -> new ResourceNotFoundException("Character", "Id", characterId));
+		Faction faction = factionRepository.findById(characterModel.getFactionId())
+				.orElseThrow(() -> new ResourceNotFoundException("Faction", "Id", characterModel.getFactionId()));
+		character.getSkills().clear();
+		character.getPlotlines().clear();
+		
+		character.setFaction(faction);
+		character.setCharacterName(characterModel.getCharacterName());
+		character.setRace(characterModel.getRace());
+		character.setGender(characterModel.getGender());
+		character.setDescription(characterModel.getDescription());
+		
+		for(String skillName : characterModel.getSkills()) {
+			Skill skill = skillRepository.findBySkillName(skillName).orElseThrow(() -> new ResourceNotFoundException("Skill", "name", skillName));
+			character.getSkills().add(skill);
+		}
+		
+		for(Integer plotlineId : characterModel.getPlotlines()) {
+			Plotline plotline = plotlineRepository.findById(plotlineId).orElseThrow(() -> new ResourceNotFoundException("Plotline", "Id", plotlineId));
+			character.getPlotlines().add(plotline);
+		}
+		
+		return characterRepository.save(character);
 	}
 
+	//The plotline put method is much simpler as it's a simple toggle from active to inactive and vice versa.
 	@Override
 	public Plotline updatePlotline(int plotlineId) {
-		// TODO Auto-generated method stub
-		return null;
+		Plotline plotline = plotlineRepository.findById(plotlineId).orElseThrow(() -> new ResourceNotFoundException("Plotline", "Id", plotlineId));
+		
+		plotline.setActive(!plotline.isActive());
+		
+		return plotlineRepository.save(plotline);
 	}
 
 	
 	
 	
 	//Delete methods
+	//Both delete methods are simple, as I simply check whether the entity exists and then delete it.
 	
 	@Override
 	public void deleteFaction(int factionId) {
-		// TODO Auto-generated method stub
-		
+		Faction factionToDelete = factionRepository.findById(factionId).orElseThrow(() -> new ResourceNotFoundException("Faction", "Id", factionId));
+		factionRepository.delete(factionToDelete);
 	}
 
 	@Override
 	public void deleteCharacter(int characterId) {
-		// TODO Auto-generated method stub
-		
+		CharacterInfo characterToDelete = characterRepository.findById(characterId)
+				.orElseThrow(() -> new ResourceNotFoundException("Character", "Id", characterId));
+		characterRepository.delete(characterToDelete);
 	}
 	
 }

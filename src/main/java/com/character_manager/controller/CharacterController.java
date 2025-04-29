@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -96,9 +98,33 @@ public class CharacterController {
 	
 	
 	//Put methods
+	//To ensure that my response entities weren't recursive, I took the same precautions as I did in my recursive post methods.
+	@PutMapping("/character_table/{characterId}")
+	public ResponseEntity<CharacterInfo> updateCharacter(@PathVariable int characterId, @RequestBody CharacterModel characterModel) {
+		CharacterInfo character = characterService.updateCharacter(characterModel, characterId);
+		return new ResponseEntity<CharacterInfo>(characterService.getCharacterById(character.getCharacterId()), HttpStatus.OK);
+	}
+	
+	@PutMapping("/plotline/{plotlineId}")
+	public ResponseEntity<Plotline> updatePlotline(@PathVariable int plotlineId) {
+		characterService.updatePlotline(plotlineId);
+		return new ResponseEntity<Plotline>(characterService.getPlotlineById(plotlineId), HttpStatus.OK);
+	}
 	
 	
 	
 	//Delete methods
+	
+	@DeleteMapping("/faction/{factionId}")
+	public ResponseEntity<String> deleteFaction(@PathVariable int factionId) {
+		characterService.deleteFaction(factionId);
+		return new ResponseEntity<String>("Faction successfully deleted", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/character_table/{characterId}")
+	public ResponseEntity<String> deleteCharacter(@PathVariable int characterId) {
+		characterService.deleteCharacter(characterId);
+		return new ResponseEntity<String>("Character successfully deleted", HttpStatus.OK);
+	}
 	
 }

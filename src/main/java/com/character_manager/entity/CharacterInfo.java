@@ -45,10 +45,13 @@ public class CharacterInfo {
 	private String gender;
 	private String description;
 	
+	//I had an issue when first trying to delete a character, where the faction was deleted as well.
+	//My problem was that I had the same cascade type here as I did on the faction entity.
+	//Once I removed the cascade it worked without any issues.
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "faction_id")
+	@ManyToOne
+	@JoinColumn(name = "faction_id", nullable = false)
 	private Faction faction;
 	
 	@EqualsAndHashCode.Exclude
