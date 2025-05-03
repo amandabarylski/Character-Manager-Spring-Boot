@@ -1,0 +1,98 @@
+body {
+	background-color: burlywood;
+}
+
+h1 {
+	text-align: center;
+	color: rgb(89, 20, 0);
+	padding-bottom: 1px;
+	border-bottom: double 2px rgb(89, 20, 0);
+}
+
+h2 {
+	text-align: center;
+	color: rgb(89, 20, 0);
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-bottom: 1px;
+	border: solid 1px black;
+	box-shadow: 2px 2px 2px rgb(89, 20, 0);
+}
+
+#back-to-top {
+	background-color: transparent;
+	color: maroon;
+	border: outset 1px maroon;
+}
+
+.button-holder {
+	text-align: center;
+	justify-content: center;
+	margin-bottom: 5px;
+}
+
+a {
+	color: maroon;
+}
+
+#flex-container {
+	display: flex;
+	margin: 5%;
+}
+
+#character-list {
+	width: 50%;
+}
+
+.sidebar {
+	width: 25%;
+}
+
+#faction-list {
+	float: left;
+}
+
+#plotline-list {
+	float: right;
+}
+
+.row {
+	margin: 5px;
+	border: solid 0.5px maroon;
+	box-shadow: 2px 2px 2px rgb(89, 20, 0);
+	justify-content: center;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.red {
+	color: darkred;
+}
+
+.blue {
+	color: darkblue;
+}
+
+.green {
+	color: darkgreen;
+}
+
+.purple {
+	color: darkmagenta;
+}
+
+.orange {
+	color: orangered;
+}
+
+.plotline-title {
+	color: rgb(89, 20, 0);
+}
+
+.loading {
+	color: darkslategray;
+	text-align: center;
+	justify-content: center;
+}
+
+
