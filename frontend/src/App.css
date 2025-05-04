@@ -19,37 +19,49 @@ h2 {
 	box-shadow: 2px 2px 2px rgb(89, 20, 0);
 }
 
+h3 {
+	color: rgb(89, 20, 0);
+}
+
 #back-to-top {
 	background-color: transparent;
 	color: maroon;
-	border: outset 1px maroon;
+	border: outset 3px maroon;
+	border-radius: 5px;
+	padding: 5px;
 }
 
 .button-holder {
 	text-align: center;
 	justify-content: center;
 	margin-bottom: 5px;
+	padding-bottom: 10px;
 }
 
 a {
 	color: maroon;
+	font-weight: bold;
+	padding-bottom: 1px;
 }
 
 #flex-container {
 	display: flex;
-	margin: 5%;
+	flex-wrap: nowrap;
+	margin: 3%;
 }
 
 #character-list {
-	width: 50%;
+	width: 33%;
+	margin-bottom: 5px;
 }
 
 .sidebar {
-	width: 25%;
+	width: 33%;
 }
 
 #faction-list {
 	float: left;
+	margin-bottom: 5px;
 }
 
 #plotline-list {
@@ -59,6 +71,7 @@ a {
 .row {
 	margin: 5px;
 	border: solid 0.5px maroon;
+	border-radius: 5px;
 	box-shadow: 2px 2px 2px rgb(89, 20, 0);
 	justify-content: center;
 	padding-left: 3px;
@@ -66,7 +79,7 @@ a {
 }
 
 .red {
-	color: darkred;
+	color: rgb(189, 0, 0);
 }
 
 .blue {
@@ -82,17 +95,33 @@ a {
 }
 
 .orange {
-	color: orangered;
-}
-
-.plotline-title {
-	color: rgb(89, 20, 0);
+	color: brown;
 }
 
 .loading {
 	color: darkslategray;
 	text-align: center;
 	justify-content: center;
+}
+
+.inactive {
+	color: darkslategray;
+	font-style: italic;
+}
+
+@media (max-width: 760px) {
+	
+	#flex-container {
+		flex-wrap: wrap;
+	}
+	
+	#character-list {
+		width: 100%;
+	}
+	
+	.sidebar {
+		width: 100%;
+	}
 }
 
 
