@@ -94,18 +94,18 @@ function App() {
   return (
     <>
 	<h1>Character Manager App</h1>
-	<div id="flex-container">
+	<main id="flex-container">
           <FactionList factionLoading={factionLoading} factions={factions} characters={characters} />
 		  
-          <CharacterList characterLoading={characterLoading} characters={characters} 
+          <CharacterList characterLoading={characterLoading} setCharacterLoading={setCharacterLoading} characters={characters}
 		  factions={factions} plotlines={plotlines} skills={skills} />
 		  
 		  <PlotlineList plotlineLoading={plotlineLoading} plotlines={plotlines} characters={characters} />
 
-	</div>
-	<div className="button-holder">
+	</main>
+	<footer className="button-holder">
 	<button type="button" id="back-to-top"><a href="#top">^ Back to Top ^</a></button>
-	</div>
+	</footer>
 	</>
   )
 }

@@ -1,3 +1,4 @@
+/*HTML targeters*/
 body {
 	background-color: burlywood;
 }
@@ -9,26 +10,44 @@ h1 {
 	border-bottom: double 2px rgb(89, 20, 0);
 }
 
-h2 {
+h3 {
+	color: rgb(89, 20, 0);
+	text-align: left;
+}
+
+a {
+	color: maroon;
+	font-weight: bold;
+	padding-bottom: 1px;
+}
+
+ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+	margin-left: -10px;
+	margin-right: -10px;
+}
+
+li {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+
+
+
+/*Class targeters*/
+.column-header {
+	display: flex;
 	text-align: center;
 	color: rgb(89, 20, 0);
 	margin-left: 5px;
 	margin-right: 5px;
-	padding-bottom: 1px;
+	padding-left: 5px;
+	padding-right: 5px;
 	border: solid 1px black;
 	box-shadow: 2px 2px 2px rgb(89, 20, 0);
-}
-
-h3 {
-	color: rgb(89, 20, 0);
-}
-
-#back-to-top {
-	background-color: transparent;
-	color: maroon;
-	border: outset 3px maroon;
-	border-radius: 5px;
-	padding: 5px;
 }
 
 .button-holder {
@@ -38,44 +57,19 @@ h3 {
 	padding-bottom: 10px;
 }
 
-a {
-	color: maroon;
-	font-weight: bold;
-	padding-bottom: 1px;
-}
-
-#flex-container {
-	display: flex;
-	flex-wrap: nowrap;
-	margin: 3%;
-}
-
-#character-list {
-	width: 33%;
-	margin-bottom: 5px;
-}
-
 .sidebar {
 	width: 33%;
 }
 
-#faction-list {
-	float: left;
-	margin-bottom: 5px;
-}
-
-#plotline-list {
-	float: right;
-}
-
 .row {
+	display: flex;
 	margin: 5px;
 	border: solid 0.5px maroon;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px rgb(89, 20, 0);
-	justify-content: center;
-	padding-left: 3px;
-	padding-right: 3px;
+	justify-content: space-between;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .red {
@@ -109,6 +103,127 @@ a {
 	font-style: italic;
 }
 
+.see-details {
+	background-color: lightblue;
+	color: midnightblue;
+	border: outset 3px midnightblue;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.hide-details {
+	background-color: lightgray;
+	color: darkslategray;
+	border: outset 3px darkslategray;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.detail-container {
+	margin: 5px;
+	border: solid 0.5px maroon;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px rgb(89, 20, 0);
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.detail-section {
+	color: rgb(89, 20, 0);
+	border-bottom: solid 1px maroon;
+	margin-bottom: 2px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.detail-list {
+	color: rgb(89, 20, 0);
+	border-bottom: solid 1px maroon;
+	margin-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.detail-buttons {
+	margin-bottom: 2px;
+	display: flex;
+	justify-content: space-evenly;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 2px;
+}
+
+.edit-button {
+	background-color: lightgreen;
+	color: darkgreen;
+	border: outset 3px darkgreen;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.delete-button {
+	background-color: orange;
+	color: maroon;
+	border: outset 3px maroon;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.toggle-to-inactive {
+	background-color: lightpink;
+	color: darkmagenta;
+	border: outset 3px darkmagenta;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.toggle-to-active {
+	background-color: lightgray;
+	color: darkslategray;
+	border: outset 3px darkslategray;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+
+
+/*Id targeters*/
+#flex-container {
+	display: flex;
+	flex-wrap: nowrap;
+	margin: 3%;
+}
+
+#character-list {
+	width: 33%;
+	margin-bottom: 5px;
+}
+
+#faction-list {
+	float: left;
+	margin-bottom: 5px;
+}
+
+#plotline-list {
+	float: right;
+}
+
+#back-to-top {
+	background-color: transparent;
+	color: maroon;
+	border: outset 3px maroon;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+
+
+/*Media queries*/
 @media (max-width: 760px) {
 	
 	#flex-container {
