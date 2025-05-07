@@ -4,10 +4,16 @@ import { useState } from 'react';
 interface CharacterDetailsProps {
 	character: CharacterInfo
 	deselectCharacter: () => void
+	fetchFactions: () => void
+	fetchCharacters: () => void
+	fetchPlotlines: () => void
+	fetchSkills: () => void
+	fetchCharacterById: (id: number) => void
 }
 
 
-function CharacterDetails ({character, deselectCharacter} : CharacterDetailsProps) {
+function CharacterDetails ({ character, deselectCharacter, 
+	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills, fetchCharacterById } : CharacterDetailsProps) {
 	
 	//I originally passed the setFormOpen from the character list into this component,
 	//but once I decided to have separate form components for create and edit I needed them to be separate.
@@ -33,7 +39,7 @@ function CharacterDetails ({character, deselectCharacter} : CharacterDetailsProp
 				<h3 className={character.faction.accentColor}>Skills</h3>
 				<ul>
 					{character.skills.map((skill) => (
-						<li>{skill.skillName}</li>
+						<li key={skill.skillId}>{skill.skillName}</li>
 					))}
 				</ul>
 			</section>
@@ -41,12 +47,12 @@ function CharacterDetails ({character, deselectCharacter} : CharacterDetailsProp
 				<h3 className={character.faction.accentColor}>Involved in:</h3>
 				<ul>
 					{character.plotlines.map((plotline) => (
-						<li>{plotline.plotlineName}</li>
+						<li key={plotline.plotlineId}>{plotline.plotlineName}</li>
 					))}
 				</ul>
 			</section>
 			<section className="detail-buttons">
-				<button type="button" className="edit-button">Edit</button>
+				<button type="button" className="open-form-button">Edit</button>
 				<button type="button" className="delete-button">Delete</button>
 			</section>
 		</div>

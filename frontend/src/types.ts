@@ -11,6 +11,16 @@ export interface CharacterInfo {
 	plotlines: Plotline[]
 }
 
+export interface CharacterModel {
+	characterName: string,
+	race?: string,
+	gender?: string,
+	description?: string,
+	factionId: number,
+	skills: string[],
+	plotlines: number[]
+}
+
 export interface Faction {
 	factionId: number,
 	factionName: string,
@@ -32,4 +42,12 @@ export interface Plotline {
 	duration?: string,
 	active: boolean,
 	characters: CharacterInfo[]
+}
+
+export interface PlotlineModel {
+	plotlineName: string,
+	description?: string,
+	duration?: string,
+	active: boolean,
+	characters: number[]
 }

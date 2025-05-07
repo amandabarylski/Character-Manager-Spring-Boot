@@ -34,13 +34,65 @@ li {
 	margin-right: 10px;
 }
 
+label {
+	color: rgb(89, 20, 0);
+	font-weight: bold;
+}
 
+select {
+	background-color: linen;
+	color: rgb(89, 20, 0);
+	border: solid 0.5px rgb(89, 20, 0);
+}
+
+dialog {
+	border: none;
+	background-color: rgb(0, 0, 0, 0.4);
+	backdrop-filter: blur(2px);
+	position: fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	height:100%;
+	width:100%;
+	align-content: center;
+}
+
+input {
+	background-color: linen;
+	color: rgb(89, 20, 0);
+	border: solid 0.5px rgb(89, 20, 0);
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+input:focus {
+	outline: solid 3px darkslateblue;
+}
+
+textarea {
+	background-color: linen;
+	color: rgb(89, 20, 0);
+	border: solid 0.5px rgb(89, 20, 0);
+	min-width: 50%;
+	min-height: 50px;
+}
+
+textarea:focus {
+	outline: solid 3px darkslateblue;
+}
+
+input[type="checkbox"] {
+	vertical-align: middle;
+}
 
 
 /*Class targeters*/
 .column-header {
 	display: flex;
 	text-align: center;
+	justify-content: space-between;
 	color: rgb(89, 20, 0);
 	margin-left: 5px;
 	margin-right: 5px;
@@ -105,8 +157,8 @@ li {
 
 .see-details {
 	background-color: lightblue;
-	color: midnightblue;
-	border: outset 3px midnightblue;
+	color: darkblue;
+	border: outset 3px darkblue;
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -136,6 +188,7 @@ li {
 	margin-bottom: 2px;
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
 	justify-content: space-between;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -149,6 +202,17 @@ li {
 	padding-right: 5px;
 }
 
+.checkbox-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.checkbox {
+	min-width: 40%;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 .detail-buttons {
 	margin-bottom: 2px;
 	display: flex;
@@ -158,11 +222,14 @@ li {
 	padding-bottom: 2px;
 }
 
-.edit-button {
-	background-color: lightgreen;
+.open-form-button {
+	background-color: paleturquoise;
 	color: darkgreen;
 	border: outset 3px darkgreen;
 	border-radius: 5px;
+	width: 75px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	padding: 5px;
 }
 
@@ -171,13 +238,16 @@ li {
 	color: maroon;
 	border: outset 3px maroon;
 	border-radius: 5px;
+	width: 75px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	padding: 5px;
 }
 
 .toggle-to-inactive {
-	background-color: lightpink;
-	color: darkmagenta;
-	border: outset 3px darkmagenta;
+	background-color: linen;
+	color: rgb(89, 20, 0);
+	border: outset 3px rgb(89, 20, 0);
 	border-radius: 5px;
 	padding: 5px;
 }
@@ -188,6 +258,46 @@ li {
 	border: outset 3px darkslategray;
 	border-radius: 5px;
 	padding: 5px;
+}
+
+.submit-button {
+	background-color: lavender;
+	color: darkmagenta;
+	border: outset 3px darkmagenta;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.cancel-button {
+	background-color: linen;
+	color: rgb(89, 20, 0);
+	border: outset 3px rgb(89, 20, 0);
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.dialog-interior {
+	background-color: burlywood;
+	color: rgb(89, 20, 0);
+	border: solid 1px rgb(89, 20, 0);
+	width: 25vw;
+	margin: auto;
+	padding: 3px;
+}
+
+.dialog-header {
+	text-align: center;
+	border-bottom: solid 0.5px rgb(89, 20, 0);
+	padding-bottom: 1px;
+}
+
+.dialog-buttons {
+	display: flex;
+	justify-content: space-evenly;
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 

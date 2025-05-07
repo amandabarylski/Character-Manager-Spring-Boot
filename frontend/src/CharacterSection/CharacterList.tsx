@@ -2,6 +2,8 @@ import { CharacterInfo, Faction, Skill, Plotline } from '../types';
 import { useState } from 'react';
 import CharacterRow from './CharacterRow';
 import CharacterDetails from './CharacterDetails';
+import SearchBar from './SearchBar';
+import NewCharacter from './NewCharacter';
 
 interface CharacterProps {
 	characterLoading: boolean
@@ -10,9 +12,14 @@ interface CharacterProps {
 	factions: Faction[]
 	plotlines: Plotline[]
 	skills: Skill[]
+	fetchFactions: () => void
+	fetchCharacters: () => void
+	fetchPlotlines: () => void
+	fetchSkills: () => void
 }
 
-function CharacterList({characterLoading, setCharacterLoading, characters, factions, plotlines, skills}: CharacterProps) {
+function CharacterList({characterLoading, setCharacterLoading, characters, factions, plotlines, skills, 
+	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills }: CharacterProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
@@ -83,25 +90,49 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 		} catch (error) {
 			console.log('Error: ', error)
 		}
-	}	
+	}
 	
 	
 	//Return statement starts here:
+	//I had to use a lot of parentheses and curly braces to get my options to work.
+	//The only thing changing between the two maps is the array being mapped, with all other functions remaining the same.
+	//As the filteredList will always be an array, with my clear search emptying that array, I was able to use the .length property in my ternary.
 	return (
 		<div  id="character-list">
-		{characterLoading ? (
+		{formOpen ? (
+			<NewCharacter factions={factions} allSkills={skills} allPlotlines={plotlines} setFormOpen={setFormOpen}
+			fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills} />
+				) : (
+		<>{characterLoading ? (
 			<p className="loading">Fetching characters...</p>
 		) : (
 			<div>
 			<div className="column-header">
 				<h2>Characters</h2>
+				<button type="button" className="open-form-button" onClick={()=> setFormOpen(true)}>New</button>
 			</div>
-				{characters.map((character) => (
+			<SearchBar skills={skills} fetchCharactersBySkill={fetchCharactersBySkill} setFilteredList={setFilteredList} />
+			{(filteredList.length) < 1 ? 
+				<>{characters.map((character) => (
 					(character.characterId === selected.characterId) ? 
-					(<CharacterDetails key={selected.characterId} character={selected} deselectCharacter={deselectCharacter} />) :
+					(<CharacterDetails key={selected.characterId} character={selected} deselectCharacter={deselectCharacter}
+						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
+						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} />) :
+						
 					(<CharacterRow key={character.characterId} character={character} fetchCharacterById={fetchCharacterById} />)
-				))}
+				))}</> :
+				
+				<>{filteredList.map((character) => (
+					(character.characterId === selected.characterId) ? 
+					(<CharacterDetails key={selected.characterId} character={selected} deselectCharacter={deselectCharacter}
+						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
+						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} />) :
+					
+					(<CharacterRow key={character.characterId} character={character} fetchCharacterById={fetchCharacterById} />)
+				))}</>
+			}
 			</div>
+		)}</>
 		)}
 		</div>
 	)

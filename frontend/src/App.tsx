@@ -23,6 +23,8 @@ function App() {
 	const[skills, setSkills] = useState<Skill[]>([])
 	
 	//I originally had my fetch requests inside of the useEffect function, but I moved them out in case I needed to call on them at other times.
+	//This was good as when working on my post, put, and delete requests, I realized the changes would not appear on the front end
+	//unless I fetched from the backend again.
 	const fetchFactions = async () => {
 		setFactionLoading(true)
 		try {
@@ -95,12 +97,15 @@ function App() {
     <>
 	<h1>Character Manager App</h1>
 	<main id="flex-container">
-          <FactionList factionLoading={factionLoading} factions={factions} characters={characters} />
+          <FactionList factionLoading={factionLoading} factions={factions} characters={characters}
+		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} />
 		  
           <CharacterList characterLoading={characterLoading} setCharacterLoading={setCharacterLoading} characters={characters}
-		  factions={factions} plotlines={plotlines} skills={skills} />
+		  factions={factions} plotlines={plotlines} skills={skills}
+		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills} />
 		  
-		  <PlotlineList plotlineLoading={plotlineLoading} plotlines={plotlines} characters={characters} />
+		  <PlotlineList plotlineLoading={plotlineLoading} plotlines={plotlines} characters={characters}
+		  fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} />
 
 	</main>
 	<footer className="button-holder">

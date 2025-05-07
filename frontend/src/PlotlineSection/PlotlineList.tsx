@@ -2,15 +2,18 @@ import { CharacterInfo, Plotline } from '../types';
 import { useState } from 'react';
 import PlotlineRow from './PlotlineRow';
 import PlotlineDetails from './PlotlineDetails';
+import NewPlotline from './NewPlotline';
 
 
 interface PlotlineProps {
 	plotlineLoading: boolean
 	plotlines: Plotline[]
 	characters: CharacterInfo[]
+	fetchCharacters: () => void
+	fetchPlotlines: () => void
 }
 
-function PlotlineList({plotlineLoading, plotlines, characters}: PlotlineProps) {
+function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, fetchPlotlines}: PlotlineProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
@@ -53,12 +56,16 @@ function PlotlineList({plotlineLoading, plotlines, characters}: PlotlineProps) {
 	//I decided to put this comment in this file rather than the others as plotlines have less funcionality so it won't be as busy.
 	return (
 		<div className="sidebar" id="plotline-list">
-		{plotlineLoading ? (
+		{formOpen ? (
+			<NewPlotline setFormOpen={setFormOpen} allCharacters={characters} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} />
+		) : (
+		<>{plotlineLoading ? (
 			<p className="loading">Fetching plotlines...</p>
 		) : (
 			<div>
 				<div className="column-header">
 					<h2>Plotlines</h2>
+					<button type="button" className="open-form-button" onClick={()=> setFormOpen(true)}>New</button>
 				</div>
 				{plotlines.map((plotline) => (
 					(plotline.plotlineId === selected.plotlineId) ? 
@@ -66,6 +73,7 @@ function PlotlineList({plotlineLoading, plotlines, characters}: PlotlineProps) {
 					(<PlotlineRow key={plotline.plotlineId} plotline={plotline} fetchPlotlineById={fetchPlotlineById} />)
 				))}
 			</div>
+		)}</>
 		)}
 		</div>
 		)

@@ -2,14 +2,17 @@ import { CharacterInfo, Faction } from '../types';
 import { useState } from 'react';
 import FactionRow from './FactionRow';
 import FactionDetails from './FactionDetails';
+import NewFaction from './NewFaction'
 
 interface FactionProps {
 	factionLoading: boolean
 	factions: Faction[]
 	characters: CharacterInfo[]
+	fetchFactions: () => void
+	fetchCharacters: () => void
 }
 
-function FactionList({factionLoading, factions, characters}: FactionProps) {
+function FactionList({factionLoading, factions, characters, fetchFactions, fetchCharacters}: FactionProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
@@ -48,12 +51,16 @@ function FactionList({factionLoading, factions, characters}: FactionProps) {
 	
 	return (
 		<div className="sidebar" id="faction-list">
-		{factionLoading ? (
+		{formOpen ? (
+			<NewFaction setFormOpen={setFormOpen} fetchFactions={fetchFactions} />
+		) : (
+		<>{factionLoading ? (
 			<p className="loading">Fetching factions...</p>
 		) : (
 			<div>
 				<div className="column-header">
 					<h2>Factions</h2>
+					<button type="button" className="open-form-button" onClick={()=> setFormOpen(true)}>New</button>
 				</div>
 				{factions.map((faction) => (
 					(faction.factionId === selected.factionId) ? 
@@ -61,6 +68,7 @@ function FactionList({factionLoading, factions, characters}: FactionProps) {
 					(<FactionRow key={faction.factionId} faction={faction} fetchFactionById={fetchFactionById} />)
 				))}
 			</div>
+		)}</>
 		)}
 		</div>
 	)
