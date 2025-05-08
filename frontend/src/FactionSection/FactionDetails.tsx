@@ -3,10 +3,11 @@ import { Faction } from '../types';
 interface FactionDetailsProps {
 	faction: Faction
 	deselectFaction: () => void
+	deselectAll: () => void
 }
 
 
-function FactionDetails({ faction, deselectFaction } : FactionDetailsProps) {
+function FactionDetails({ faction, deselectFaction, deselectAll } : FactionDetailsProps) {
 	
 	
 	//I was able to copy and paste most of this code from my character details file, changing the contents but keeping the styling consistent.

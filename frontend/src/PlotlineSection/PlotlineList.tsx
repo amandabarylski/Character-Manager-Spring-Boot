@@ -11,14 +11,20 @@ interface PlotlineProps {
 	characters: CharacterInfo[]
 	fetchCharacters: () => void
 	fetchPlotlines: () => void
+	selectedPlotline: Plotline
+	setSelectedPlotline: (selected: Plotline) => void
+	deselectPlotline: () => void
+	deselectAll: () => void
 }
 
-function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, fetchPlotlines}: PlotlineProps) {
+function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, fetchPlotlines,
+	selectedPlotline, setSelectedPlotline, deselectPlotline, deselectAll
+}: PlotlineProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
 	//Again adding the selection method I used for characters here.
-	const[selected, setSelected] = useState<Plotline>({
+/*	const[selected, setSelected] = useState<Plotline>({
 		plotlineId: -1,
 		plotlineName: "",
 		description: "",
@@ -36,7 +42,7 @@ function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, 
 				active: false,
 				characters: []
 			})
-	}
+	}*/
 	
 	const fetchPlotlineById = async (plotlineId: number) => {
 		try {
@@ -45,7 +51,7 @@ function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, 
 				throw new Error(`Could not retrieve plotline with Id: ${plotlineId}`)
 			}
 			const data = await response.json()
-			setSelected(data)
+			setSelectedPlotline(data)
 		} catch (error) {
 			console.log('Error: ', error)
 		}
@@ -57,7 +63,8 @@ function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, 
 	return (
 		<div className="sidebar" id="plotline-list">
 		{formOpen ? (
-			<NewPlotline setFormOpen={setFormOpen} allCharacters={characters} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} />
+			<NewPlotline setFormOpen={setFormOpen} allCharacters={characters} fetchCharacters={fetchCharacters} 
+			fetchPlotlines={fetchPlotlines} deselectAll={deselectAll} />
 		) : (
 		<>{plotlineLoading ? (
 			<p className="loading">Fetching plotlines...</p>
@@ -68,8 +75,8 @@ function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, 
 					<button type="button" className="open-form-button" onClick={()=> setFormOpen(true)}>New</button>
 				</div>
 				{plotlines.map((plotline) => (
-					(plotline.plotlineId === selected.plotlineId) ? 
-					(<PlotlineDetails key={selected.plotlineId} plotline={selected} deselectPlotline={deselectPlotline} />) :
+					(plotline.plotlineId === selectedPlotline.plotlineId) ? 
+					(<PlotlineDetails key={selectedPlotline.plotlineId} plotline={selectedPlotline} deselectPlotline={deselectPlotline} />) :
 					(<PlotlineRow key={plotline.plotlineId} plotline={plotline} fetchPlotlineById={fetchPlotlineById} />)
 				))}
 			</div>

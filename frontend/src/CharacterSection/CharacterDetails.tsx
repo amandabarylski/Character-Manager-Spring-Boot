@@ -9,11 +9,12 @@ interface CharacterDetailsProps {
 	fetchPlotlines: () => void
 	fetchSkills: () => void
 	fetchCharacterById: (id: number) => void
+	deselectAll: () => void
 }
 
 
-function CharacterDetails ({ character, deselectCharacter, 
-	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills, fetchCharacterById } : CharacterDetailsProps) {
+function CharacterDetails ({ character, deselectCharacter, fetchFactions, fetchCharacters, 
+	fetchPlotlines, fetchSkills, fetchCharacterById, deselectAll } : CharacterDetailsProps) {
 	
 	//I originally passed the setFormOpen from the character list into this component,
 	//but once I decided to have separate form components for create and edit I needed them to be separate.

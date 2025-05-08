@@ -11,10 +11,11 @@ interface NewCharacterProps {
 	fetchCharacters: () => void
 	fetchPlotlines: () => void
 	fetchSkills: () => void
+	deselectAll: () => void
 }
 
 function NewCharacter({ factions, allSkills, allPlotlines, setFormOpen, 
-	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills } : NewCharacterProps) {
+	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills, deselectAll } : NewCharacterProps) {
 	
 //	const[skillList, setSkillList] = useState<string[]>([])
 //	const[plotlineList, setPlotlineList] = useState<number[]>([])
@@ -104,6 +105,7 @@ function NewCharacter({ factions, allSkills, allPlotlines, setFormOpen,
 				},
 				body: JSON.stringify(formValues)
 			})
+			deselectAll()
 			fetchFactions()
 			fetchCharacters()
 			fetchPlotlines()

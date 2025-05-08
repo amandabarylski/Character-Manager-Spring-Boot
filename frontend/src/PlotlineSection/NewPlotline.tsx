@@ -7,9 +7,10 @@ interface NewPlotlineProps {
 	allCharacters: CharacterInfo[]
 	fetchCharacters: () => void
 	fetchPlotlines: () => void
+	deselectAll: () => void
 }
 
-function NewPlotline({ setFormOpen, allCharacters, fetchCharacters, fetchPlotlines } : NewPlotlineProps) {
+function NewPlotline({ setFormOpen, allCharacters, fetchCharacters, fetchPlotlines, deselectAll } : NewPlotlineProps) {
 	
 	//Like the new character from, I created a new type to allow for an empty array to have the number type.
 	const[formValues, setFormValues] = useState<PlotlineModel>({
@@ -59,6 +60,7 @@ function NewPlotline({ setFormOpen, allCharacters, fetchCharacters, fetchPlotlin
 				},
 				body: JSON.stringify(formValues)
 			})
+			deselectAll()
 			fetchCharacters()
 			fetchPlotlines()
 			setIsPostModalOpen(false)

@@ -5,9 +5,10 @@ import PostModal from '../Modals/PostModal';
 interface NewFactionProps {
 	setFormOpen: (isOpen: boolean) => void
 	fetchFactions: () => void
+	deselectAll: () => void
 }
 
-function NewFaction({ setFormOpen, fetchFactions } : NewFactionProps) {
+function NewFaction({ setFormOpen, fetchFactions, deselectAll } : NewFactionProps) {
 	
 	//My formValues are much simpler here than for characters or plotlines, as characters are only added to the faction later.
 	const[formValues, setFormValues] = useState({
@@ -43,6 +44,7 @@ function NewFaction({ setFormOpen, fetchFactions } : NewFactionProps) {
 				},
 				body: JSON.stringify(formValues)
 			})
+			deselectAll()
 			fetchFactions()
 			setIsPostModalOpen(false)
 			setFormOpen(false)

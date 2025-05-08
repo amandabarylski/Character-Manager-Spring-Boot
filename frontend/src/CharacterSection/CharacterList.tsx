@@ -16,10 +16,15 @@ interface CharacterProps {
 	fetchCharacters: () => void
 	fetchPlotlines: () => void
 	fetchSkills: () => void
+	selectedCharacter: CharacterInfo
+	setSelectedCharacter: (selected: CharacterInfo) => void
+	deselectCharacter: () => void
+	deselectAll: () => void
 }
 
 function CharacterList({characterLoading, setCharacterLoading, characters, factions, plotlines, skills, 
-	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills }: CharacterProps) {
+	fetchFactions, fetchCharacters, fetchPlotlines, fetchSkills,
+	selectedCharacter, setSelectedCharacter, deselectCharacter, deselectAll }: CharacterProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
@@ -27,7 +32,7 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 	
 	//I originally wanted selected to be null when no character was selected.
 	//However, errors arose with that approach, so I provided an empty character to serve as the unselected form.
-	const[selected, setSelected] = useState<CharacterInfo>({
+/*	const[selected, setSelected] = useState<CharacterInfo>({
 		characterId: -1,
 		characterName: "",
 		race: "",
@@ -42,10 +47,10 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 		},
 		skills: [],
 		plotlines: []
-	})
+	})*/
 	
 	//I didn't want to have to put the empty character in my onClick in the TSX, so I stored it in another function.
-	const deselectCharacter = () => {
+/*	const deselectCharacter = () => {
 		setSelected({
 				characterId: -1,
 				characterName: "",
@@ -62,7 +67,7 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 				skills: [],
 				plotlines: []
 			})
-	}
+	}*/
 	
 	const fetchCharactersBySkill = async (skillName: string) => {
 		setCharacterLoading(true)
@@ -86,7 +91,7 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 				throw new Error(`Could not retrieve character with Id: ${characterId}`)
 			}
 			const data = await response.json()
-			setSelected(data)
+			setSelectedCharacter(data)
 		} catch (error) {
 			console.log('Error: ', error)
 		}
@@ -101,7 +106,8 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 		<div  id="character-list">
 		{formOpen ? (
 			<NewCharacter factions={factions} allSkills={skills} allPlotlines={plotlines} setFormOpen={setFormOpen}
-			fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills} />
+			fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills}
+			deselectAll={deselectAll} />
 				) : (
 		<>{characterLoading ? (
 			<p className="loading">Fetching characters...</p>
@@ -114,19 +120,19 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 			<SearchBar skills={skills} fetchCharactersBySkill={fetchCharactersBySkill} setFilteredList={setFilteredList} />
 			{(filteredList.length) < 1 ? 
 				<>{characters.map((character) => (
-					(character.characterId === selected.characterId) ? 
-					(<CharacterDetails key={selected.characterId} character={selected} deselectCharacter={deselectCharacter}
+					(character.characterId === selectedCharacter.characterId) ? 
+					(<CharacterDetails key={selectedCharacter.characterId} character={selectedCharacter} deselectCharacter={deselectCharacter}
 						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
-						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} />) :
+						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll} />) :
 						
 					(<CharacterRow key={character.characterId} character={character} fetchCharacterById={fetchCharacterById} />)
 				))}</> :
 				
 				<>{filteredList.map((character) => (
-					(character.characterId === selected.characterId) ? 
-					(<CharacterDetails key={selected.characterId} character={selected} deselectCharacter={deselectCharacter}
+					(character.characterId === selectedCharacter.characterId) ? 
+					(<CharacterDetails key={selectedCharacter.characterId} character={selectedCharacter} deselectCharacter={deselectCharacter}
 						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
-						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} />) :
+						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll} />) :
 					
 					(<CharacterRow key={character.characterId} character={character} fetchCharacterById={fetchCharacterById} />)
 				))}</>

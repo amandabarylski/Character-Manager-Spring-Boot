@@ -7,17 +7,21 @@ import NewFaction from './NewFaction'
 interface FactionProps {
 	factionLoading: boolean
 	factions: Faction[]
-	characters: CharacterInfo[]
 	fetchFactions: () => void
 	fetchCharacters: () => void
+	selectedFaction: Faction
+	setSelectedFaction: (selected: Faction) => void
+	deselectFaction: () => void
+	deselectAll: () => void
 }
 
-function FactionList({factionLoading, factions, characters, fetchFactions, fetchCharacters}: FactionProps) {
+function FactionList({factionLoading, factions, fetchFactions, fetchCharacters,
+	selectedFaction, setSelectedFaction, deselectFaction, deselectAll }: FactionProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
 	//I used the same select and deselect process as I did for the character list since I worked on it first.
-	const[selected, setSelected] = useState<Faction>({
+/*	const[selected, setSelected] = useState<Faction>({
 		factionId: -1,
 		factionName: "",
 		description: "",
@@ -33,7 +37,7 @@ function FactionList({factionLoading, factions, characters, fetchFactions, fetch
 				accentColor: "",
 				characters: []
 			})
-	}
+	}*/
 	
 	const fetchFactionById = async (factionId: number) => {
 		try {
@@ -42,7 +46,7 @@ function FactionList({factionLoading, factions, characters, fetchFactions, fetch
 				throw new Error(`Could not retrieve faction with Id: ${factionId}`)
 			}
 			const data = await response.json()
-			setSelected(data)
+			setSelectedFaction(data)
 		} catch (error) {
 			console.log('Error: ', error)
 		}
@@ -52,7 +56,7 @@ function FactionList({factionLoading, factions, characters, fetchFactions, fetch
 	return (
 		<div className="sidebar" id="faction-list">
 		{formOpen ? (
-			<NewFaction setFormOpen={setFormOpen} fetchFactions={fetchFactions} />
+			<NewFaction setFormOpen={setFormOpen} fetchFactions={fetchFactions} deselectAll={deselectAll} />
 		) : (
 		<>{factionLoading ? (
 			<p className="loading">Fetching factions...</p>
@@ -63,8 +67,9 @@ function FactionList({factionLoading, factions, characters, fetchFactions, fetch
 					<button type="button" className="open-form-button" onClick={()=> setFormOpen(true)}>New</button>
 				</div>
 				{factions.map((faction) => (
-					(faction.factionId === selected.factionId) ? 
-					(<FactionDetails key={selected.factionId} faction={selected} deselectFaction={deselectFaction} />) :
+					(faction.factionId === selectedFaction.factionId) ? 
+					(<FactionDetails key={selectedFaction.factionId} faction={selectedFaction} 
+						deselectFaction={deselectFaction} deselectAll={deselectAll} />) :
 					(<FactionRow key={faction.factionId} faction={faction} fetchFactionById={fetchFactionById} />)
 				))}
 			</div>

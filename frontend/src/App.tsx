@@ -22,6 +22,88 @@ function App() {
 	
 	const[skills, setSkills] = useState<Skill[]>([])
 	
+	//After realizing that posting a character while a faction or plotline was selected would not update them to include the new character,
+	//I moved my selection state variables and deselect functions into the app component so I could pass them where I needed them.
+	const[selectedFaction, setSelectedFaction] = useState<Faction>({
+			factionId: -1,
+			factionName: "",
+			description: "",
+			accentColor: "",
+			characters: []
+		})
+		
+	const deselectFaction = () => {
+		setSelectedFaction({
+				factionId: -1,
+				factionName: "",
+				description: "",
+				accentColor: "",
+				characters: []
+			})
+	}
+	
+	const[selectedCharacter, setSelectedCharacter] = useState<CharacterInfo>({
+			characterId: -1,
+			characterName: "",
+			race: "",
+			gender: "",
+			description: "",
+			faction: {
+				factionId: 0,
+				factionName: "",
+				description: "",
+				accentColor: "",
+				characters: []
+			},
+			skills: [],
+			plotlines: []
+		})
+		
+	const deselectCharacter = () => {
+		setSelectedCharacter({
+				characterId: -1,
+				characterName: "",
+				race: "",
+				gender: "",
+				description: "",
+				faction: {
+					factionId: 0,
+					factionName: "",
+					description: "",
+					accentColor: "",
+					characters: []
+				},
+				skills: [],
+				plotlines: []
+			})
+	}
+		
+	const[selectedPlotline, setSelectedPlotline] = useState<Plotline>({
+		plotlineId: -1,
+		plotlineName: "",
+		description: "",
+		duration: "",
+		active: false,
+		characters: []
+	})
+
+	const deselectPlotline = () => {
+		setSelectedPlotline({
+				plotlineId: -1,
+				plotlineName: "",
+				description: "",
+				duration: "",
+				active: false,
+				characters: []
+			})
+	}
+	
+	const deselectAll = () => {
+		deselectFaction()
+		deselectCharacter()
+		deselectPlotline()
+	}
+	
 	//I originally had my fetch requests inside of the useEffect function, but I moved them out in case I needed to call on them at other times.
 	//This was good as when working on my post, put, and delete requests, I realized the changes would not appear on the front end
 	//unless I fetched from the backend again.
@@ -97,15 +179,21 @@ function App() {
     <>
 	<h1>Character Manager App</h1>
 	<main id="flex-container">
-          <FactionList factionLoading={factionLoading} factions={factions} characters={characters}
-		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} />
+          <FactionList factionLoading={factionLoading} factions={factions}
+		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters}
+		  selectedFaction={selectedFaction} setSelectedFaction={setSelectedFaction} 
+		  deselectFaction={deselectFaction} deselectAll={deselectAll} />
 		  
           <CharacterList characterLoading={characterLoading} setCharacterLoading={setCharacterLoading} characters={characters}
 		  factions={factions} plotlines={plotlines} skills={skills}
-		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills} />
+		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills}
+		  selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} 
+		  deselectCharacter={deselectCharacter} deselectAll={deselectAll} />
 		  
 		  <PlotlineList plotlineLoading={plotlineLoading} plotlines={plotlines} characters={characters}
-		  fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} />
+		  fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
+		  selectedPlotline={selectedPlotline} setSelectedPlotline={setSelectedPlotline} 
+		  deselectPlotline={deselectPlotline} deselectAll={deselectAll} />
 
 	</main>
 	<footer className="button-holder">
