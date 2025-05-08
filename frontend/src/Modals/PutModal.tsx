@@ -9,6 +9,7 @@ interface PutModalProps {
 
 const PutModal: FC<PutModalProps> = ({ closeModal, show, putFunction }) => {
 	
+	//Since I was only using the put modal for character editing, it didn't need to be dynamic like the other two.
 	return (
 		<dialog style={{display: show ? "block" : "none"}}>
 			<div className="dialog-interior">

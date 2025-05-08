@@ -53,13 +53,16 @@ function NewPlotline({ setFormOpen, allCharacters, fetchCharacters, fetchPlotlin
 	const postPlotline = async () => {
 		
 		try {
-			await fetch("/character_manager/plotline", {
+			const response = await fetch("/character_manager/plotline", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(formValues)
-			})
+			});
+			if(!response.ok) {
+				throw new Error("Network response was not ok.")
+			}
 			deselectAll()
 			fetchCharacters()
 			fetchPlotlines()

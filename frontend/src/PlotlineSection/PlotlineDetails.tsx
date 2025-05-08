@@ -18,9 +18,12 @@ function PlotlineDetails({ plotline, deselectPlotline, fetchPlotlines, fetchPlot
 	//I also did a general fetch on the plotline list so that once it was deselected it would still show the change.
 	const togglePlotline = async (plotlineId: number) => {
 		try {
-			await fetch(`/character_manager/plotline/${plotlineId}`, {
+			const response = await fetch(`/character_manager/plotline/${plotlineId}`, {
 				method: "PUT"
-			})
+			});
+			if(!response.ok) {
+				throw new Error("Network response was not ok.")
+			}
 			fetchPlotlines()
 			fetchPlotlineById(plotlineId)
 		} catch (error) {

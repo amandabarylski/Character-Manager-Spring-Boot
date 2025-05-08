@@ -1,4 +1,4 @@
-import { CharacterInfo, Faction } from '../types';
+import { Faction } from '../types';
 import { useState } from 'react';
 import FactionRow from './FactionRow';
 import FactionDetails from './FactionDetails';
@@ -13,10 +13,12 @@ interface FactionProps {
 	setSelectedFaction: (selected: Faction) => void
 	deselectFaction: () => void
 	deselectAll: () => void
+	fetchPlotlines: () => void
+	fetchSkills: () => void
 }
 
 function FactionList({factionLoading, factions, fetchFactions, fetchCharacters,
-	selectedFaction, setSelectedFaction, deselectFaction, deselectAll }: FactionProps) {
+	selectedFaction, setSelectedFaction, deselectFaction, deselectAll, fetchPlotlines, fetchSkills }: FactionProps) {
 	
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
@@ -69,7 +71,9 @@ function FactionList({factionLoading, factions, fetchFactions, fetchCharacters,
 				{factions.map((faction) => (
 					(faction.factionId === selectedFaction.factionId) ? 
 					(<FactionDetails key={selectedFaction.factionId} faction={selectedFaction} 
-						deselectFaction={deselectFaction} deselectAll={deselectAll} />) :
+						deselectFaction={deselectFaction} deselectAll={deselectAll}
+						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} 
+						fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills} />) :
 					(<FactionRow key={faction.factionId} faction={faction} fetchFactionById={fetchFactionById} />)
 				))}
 			</div>

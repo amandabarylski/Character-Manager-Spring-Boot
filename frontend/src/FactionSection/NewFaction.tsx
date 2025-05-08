@@ -37,13 +37,16 @@ function NewFaction({ setFormOpen, fetchFactions, deselectAll } : NewFactionProp
 	const postFaction = async () => {
 		
 		try {
-			await fetch("/character_manager/faction", {
+			const response = await fetch("/character_manager/faction", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(formValues)
-			})
+			});
+			if(!response.ok) {
+				throw new Error("Network response was not ok.")
+			}
 			deselectAll()
 			fetchFactions()
 			setIsPostModalOpen(false)

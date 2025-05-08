@@ -180,7 +180,7 @@ function App() {
 	<h1>Character Manager App</h1>
 	<main id="flex-container">
           <FactionList factionLoading={factionLoading} factions={factions}
-		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters}
+		  fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines} fetchSkills={fetchSkills}
 		  selectedFaction={selectedFaction} setSelectedFaction={setSelectedFaction} 
 		  deselectFaction={deselectFaction} deselectAll={deselectAll} />
 		  

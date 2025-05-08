@@ -82,13 +82,16 @@ function EditCharacter ({ character, factions, allSkills, allPlotlines, setFormO
 	const putCharacter = async (characterId: number) => {
 		
 		try {
-			await fetch(`/character_manager/character_table/${characterId}`, {
+			const response = await fetch(`/character_manager/character_table/${characterId}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(formValues)
-			})
+			});
+			if(!response.ok) {
+				throw new Error("Network response was not ok.")
+			}
 			deselectAll()
 			fetchFactions()
 			fetchCharacters()
