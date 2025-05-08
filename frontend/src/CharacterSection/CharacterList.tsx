@@ -123,7 +123,8 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 					(character.characterId === selectedCharacter.characterId) ? 
 					(<CharacterDetails key={selectedCharacter.characterId} character={selectedCharacter} deselectCharacter={deselectCharacter}
 						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
-						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll} />) :
+						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll}
+						factions={factions} plotlines={plotlines} skills={skills} />) :
 						
 					(<CharacterRow key={character.characterId} character={character} fetchCharacterById={fetchCharacterById} />)
 				))}</> :
@@ -132,7 +133,8 @@ function CharacterList({characterLoading, setCharacterLoading, characters, facti
 					(character.characterId === selectedCharacter.characterId) ? 
 					(<CharacterDetails key={selectedCharacter.characterId} character={selectedCharacter} deselectCharacter={deselectCharacter}
 						fetchFactions={fetchFactions} fetchCharacters={fetchCharacters} fetchPlotlines={fetchPlotlines}
-						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll} />) :
+						fetchSkills={fetchSkills} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll}
+						factions={factions} plotlines={plotlines} skills={skills} />) :
 					
 					(<CharacterRow key={character.characterId} character={character} fetchCharacterById={fetchCharacterById} />)
 				))}</>

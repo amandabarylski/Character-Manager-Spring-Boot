@@ -76,7 +76,8 @@ function PlotlineList({plotlineLoading, plotlines, characters, fetchCharacters, 
 				</div>
 				{plotlines.map((plotline) => (
 					(plotline.plotlineId === selectedPlotline.plotlineId) ? 
-					(<PlotlineDetails key={selectedPlotline.plotlineId} plotline={selectedPlotline} deselectPlotline={deselectPlotline} />) :
+					(<PlotlineDetails key={selectedPlotline.plotlineId} plotline={selectedPlotline} deselectPlotline={deselectPlotline}
+						fetchPlotlines={fetchPlotlines} fetchPlotlineById={fetchPlotlineById} />) :
 					(<PlotlineRow key={plotline.plotlineId} plotline={plotline} fetchPlotlineById={fetchPlotlineById} />)
 				))}
 			</div>

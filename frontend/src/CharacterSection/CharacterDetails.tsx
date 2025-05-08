@@ -1,8 +1,12 @@
-import { CharacterInfo } from '../types';
+import { CharacterInfo, Faction, Skill, Plotline } from '../types';
 import { useState } from 'react';
+import EditCharacter from './EditCharacter';
 
 interface CharacterDetailsProps {
 	character: CharacterInfo
+	factions: Faction[]
+	plotlines: Plotline[]
+	skills: Skill[]
 	deselectCharacter: () => void
 	fetchFactions: () => void
 	fetchCharacters: () => void
@@ -13,14 +17,19 @@ interface CharacterDetailsProps {
 }
 
 
-function CharacterDetails ({ character, deselectCharacter, fetchFactions, fetchCharacters, 
+function CharacterDetails ({ character, factions, plotlines, skills, deselectCharacter, fetchFactions, fetchCharacters, 
 	fetchPlotlines, fetchSkills, fetchCharacterById, deselectAll } : CharacterDetailsProps) {
 	
 	//I originally passed the setFormOpen from the character list into this component,
 	//but once I decided to have separate form components for create and edit I needed them to be separate.
 	const[formOpen, setFormOpen] = useState<boolean>(false)
 	
-	return (
+	return (<>
+		{formOpen ? (
+			<EditCharacter character={character} factions={factions} allSkills={skills} allPlotlines={plotlines}
+			setFormOpen={setFormOpen} fetchCharacters={fetchCharacters} fetchFactions={fetchFactions} fetchSkills={fetchSkills}
+			fetchPlotlines={fetchPlotlines} fetchCharacterById={fetchCharacterById} deselectAll={deselectAll} />
+		) : (
 		<div className="detail-container">
 			<section className="detail-section">
 				<h3 className={character.faction.accentColor}>{character.characterName}</h3>
@@ -53,11 +62,12 @@ function CharacterDetails ({ character, deselectCharacter, fetchFactions, fetchC
 				</ul>
 			</section>
 			<section className="detail-buttons">
-				<button type="button" className="open-form-button">Edit</button>
+				<button type="button" className="open-form-button" onClick={()=> setFormOpen(true)}>Edit</button>
 				<button type="button" className="delete-button">Delete</button>
 			</section>
 		</div>
-	)
+		)}
+	</>)
 	
 }
 
