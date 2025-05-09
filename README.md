@@ -14,11 +14,10 @@ The character table will be the center of the API with relationships to all othe
 - many-to-many with both skill and plotline
 
 CRUD OPERATIONS:
-- GET: all rows from each table, by id for all but skill, by faction, skill, or plotline for character
+- GET: all rows from each table, by id for all but skill, and by skill for character
 - POST: faction, character, and plotline
-- PUT: full update on character, partial update on plotline
+- PUT: full update on character, partial update on plotline to toggle between active and inactive
 - DELETE: faction and character
 
-Other than the backend requirements, if there is time, the following will also be implemented:
-- images on characters, either as a field in the entity or as a separate entity with a one-to-one relationship (intending to implement but will remove if necessary)
-- frontend via React and custom CSS
+Since there was time, the following addition was impelemented:
+- a frontend using React and custom CSS
